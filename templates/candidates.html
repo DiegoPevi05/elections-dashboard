@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Candidates
+{% endblock %}
+
+{% block main %}
+            <div class="row" style="margin-top:50px;">
+              <h2>Political parties in contention:</h2>
+              <h5>Here youn can find information about all the candidates to the elections</h5>
+            </div>
+            <div class="row d-flex justify-content-center" id="partys">
+            {%for party in partys%}
+            <div class="card card-party" style="width: 10rem;">
+              <img src="/static/img/partys/party_{{party.id}}.JPG" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h6><a href="#party_{{party.id}}" class="card-link text-center">{{party.name_party}}</a></h6>
+              </div>
+            </div>
+            {% endfor %}
+            </div>
+
+            {%for party in partys%}
+            <div class="container-fluid">
+              <div class="row align-items-start" style="margin-top:50px;">
+                      <div class="col-8 text-start">
+                        <h2 id = "party_{{party.id}}">{{party.name_party}}</h2>
+                        <p>{{party.description}}</p>
+                        <h3>Summary of Goverment Plan's</h3>
+                        <h4>Social</h4>
+                        <p>{{party.GPSocial}}</p>
+                        <h4>Economic</h4>
+                        <p>{{party.GPEconomic}}</p>
+                        <h4>Natural</h4>
+                        <p>{{party.GPNatural}}</p>
+                        <h4>Institutional</h4>
+                        <p>{{party.GPInstitutional}}</p>
+                        <a class="btn btn-secondary" href="#partys" role="button">Go back to Partys</a>
+                      </div>
+                      <div class="col-4 text-start">
+                          <div class="card" style="width: 18rem;">
+                              <img src="/static/img/candidates/Candidate_{{party.id}}.jpg" class="card-img-top" alt="...">
+                              <div class="card-body">
+                                <h5 class="card-title text-center">{{party.name_candidate}}</h5>
+                                <p class="card-text text-start"> {{party.candidate_description}}</p>
+                              </div>
+                              <ul class="list-group list-group-flush">
+                                <li class="list-group-item">{{party.candidate_carrer}}</li>
+                                <li class="list-group-item">Age of {{party.candidate_age}}</li>
+                                <li class="list-group-item">criminal and police record: {{party.candidate_criminal_records}}</li>
+                              </ul>
+                              <div class="card-body">
+                                <a href="{{party.party_URL}}" class="card-link">{{party.name_party}}</a>
+                                <br>
+                                <a href="{{party.candidate_URL}}" class="card-link">{{party.name_candidate}}</a>
+                              </div>
+                          </div>
+                      </div>
+              </div>
+            </div>
+            {% endfor %}
+{% endblock %}

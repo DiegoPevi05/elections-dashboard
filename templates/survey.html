@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block head %}
+
+<script type="text/javascript" src="/static/survey.js"></script>
+
+{%endblock%}
+
+{% block title %}
+    Survey
+{% endblock %}
+
+{% block main %}
+
+
+            <div class="container fluid">
+                <div class = row>
+                <h1>It is time for voting!</h1>
+                <p>Here is your opportunity to be part of the database of thousand of electors that has
+                already participate in this simulation of voting, all your information is confidential and
+                not be shared with someone else.</p>
+                </div>
+                <div class="row">
+                    <div class="col-5 dialog-text">
+                        <h5>PRESIDENT AND <br> VICE-PRESIDENT</h5>
+                        <p>Select the party that you would like to vote. </p>
+                    </div>
+                    <div class="col-6 dialog-text" style="margin-left:1rem">
+                        <h5>CONGRESSMEN</h5>
+                        <p> Select the party and input the number of your prefer congresist to validate your election.</p>
+                    </div>
+                </div>
+                <form action="/survey" method="post">
+                    {%for party in partys%}
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="row">
+                                <ul class="list-group list-group-horizontal">
+                                  <li class="list-group-item list-group-item-politic dialog-candidate"> <p>Politic Party <br>{{party.name_party}}</p> </li>
+                                  <li class="list-group-item">
+                                      <img src="/static/img/partys/party_{{party.id}}.JPG" class="card-img-top img-survey" alt="...">
+                                  </li>
+                                  <li class="list-group-item president" id="{{party.id}}">
+                                      <img src="/static/img/candidates/Candidate_{{party.id}}.jpg" class="card-img-top img-survey" alt="...">
+                                  </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-6" style="margin-left:1rem">
+                            <div class="row">
+                                <ul class="list-group list-group-horizontal">
+                                    <li class="list-group-item list-group-item-politic dialog-congress"> <p>Politic Party <br>{{party.name_party}}</p> </li>
+                                    <li class="list-group-item congress" id="{{party.id}}">
+                                      <img src="/static/img/partys/party_{{party.id}}.JPG" class="card-img-top img-survey" alt="...">
+                                    </li>
+                                    <li class="list-group-item congress1">
+                                      <input type="number" class="fomr-control-congres" aria-label="number of candidate" id = "congresista_1_{{party.id}}" min="1" max="25" disabled>
+                                    </li>
+                                    <li class="list-group-item congress2">
+                                        <input type="number" class="fomr-control-congres" aria-label="number of candidate" id = "congresista_2_{{party.id}}" min="1" max="25" disabled>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="form-group">
+                        <input class="answer" name="president" type="text" value="none" id="president">
+                        <input class="answer" name="congress_party" type="text" value="none" id="congress_party">
+                        <input class="answer" name="congress_1" type="text" value="none" id="congress_1">
+                        <input class="answer" name="congress_2" type="text" value="none" id="congress_2">
+                    </div>
+
+                    <div class="row justify-content-center" style="margin-top:5rem">
+                            <button class="btn btn-primary" type="submit">Vote!</button>
+                    </div>
+                </form>
+            </div>
+{% endblock %}
+

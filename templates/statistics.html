@@ -1,0 +1,328 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+            <div class="container-fluid">
+                <h1>Here are some statistics</h1>
+                <h5>Here youn can find information how was the trayectory of many partys throw the elections
+                to the presidential seat:</h5>
+            </div>
+            <div class="container-fluid">
+                <div class="row align-items-start" style="margin-top:50px;">
+                    <div class="col-6 text-start">
+                    <h3>Electoral Decistion</h3>
+                    <p> On Sunday, April 11, 2021, the General Elections will be held
+                    in order to elect the president, 2 vice presidents and 130 congressmen from
+                    the republic, in addition to the Peruvian representatives to the Andean Parliament,
+                    in number of five (5) holders and two (2) substitutes for each of them of
+                    in accordance with the provisions of Article 1 of Law No. 28360, Elections Law
+                    of Representatives before the Andean Parliament.
+                    </p>
+                    <p>
+                    In the 2021 General Elections, an electoral population of
+                    25 million 287 thousand 954 voters, which has an increase of 488 thousand 570
+                    voters regarding the Extraordinary Congressional Elections 2020, and with
+                    with respect to the 2016 General Elections has an increase of
+                    2 million 386 thousand 000 voters.
+                    </p>
+
+                    </div>
+                    <div class="col-6 text-start">
+                    <canvas id="myChart" width="200" height="200"></canvas>
+
+                    <script type="text/javascript">
+                    var ctx = document.getElementById('myChart').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Electoral elections 2016', 'Electoral elections 2020', 'Electoral elections 2021'],
+                            datasets: [{
+                                label:'Expected Votes',
+                                data: [22901954, 24799384, 25287954],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            title:
+                            {
+                			display: true,
+                			text: 'Elections 2021 - Electoral Poblation',
+                			},
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                    </script>
+                    </div>
+                </div>
+
+                <div class="row align-items-start" style="margin-top:50px;">
+                    <div class="col-6 text-start">
+                    <canvas id="myLineChart" width="200" height="200"></canvas>
+                    <script>
+                    var labels_1=[];
+                    var labels_2=[];
+                    var labels_3=[];
+                    var labels_4=[];
+                    var labels_5=[];
+                    var labels_6=[];
+                    var labels_7=[];
+                    var labels_8=[];
+                    var labels_9=[];
+                    var party=[];
+
+                    var i = 0;
+                    "{%for survey_ip in survey_ipsos%}"
+                       labels_1[i]= "{{survey_ip['1']}}";
+                       labels_2[i]= "{{survey_ip['2']}}";
+                       labels_3[i]= "{{survey_ip['3']}}";
+                       labels_4[i]= "{{survey_ip['4']}}";
+                       labels_5[i]= "{{survey_ip['5']}}";
+                       labels_6[i]= "{{survey_ip['6']}}";
+                       labels_7[i]= "{{survey_ip['7']}}";
+                       labels_8[i]= "{{survey_ip['8']}}";
+                       labels_9[i]= "{{survey_ip['9']}}";
+                       i++;
+                    "{% endfor %}"
+
+                    i = 0;
+
+                    "{%for party in partys%}"
+                       party[i]= "{{party.name_party}}";
+                       i++;
+                    "{% endfor %}"
+
+                    var ctx = document.getElementById('myLineChart').getContext('2d');
+                    var myLineChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ["{{survey_ipsos[0]['date']}}","{{survey_ipsos[1]['date']}}",
+                            "{{survey_ipsos[2]['date']}}","{{survey_ipsos[3]['date']}}","{{survey_ipsos[4]['date']}}",
+                            "{{survey_ipsos[5]['date']}}","{{survey_ipsos[6]['date']}}"],
+                            datasets:[
+                            {
+                            label: party[0],
+                            data: labels_1,
+                            fill:false,
+                            "borderColor":'rgba(255, 99, 132, 0.2)',
+                            "lineTension":0.1
+                            },{
+                            label: party[1],
+                            data: labels_2,
+                            fill:false,
+                            "borderColor":'rgba(54, 162, 235, 0.2)',
+                            "lineTension":0.1
+                            },
+                            {label: party[2],
+                            data: labels_3,
+                            fill:false,
+                            "borderColor":'rgba(255, 206, 86, 0.2)',
+                            "lineTension":0.1
+                            },
+                            {label: party[3],
+                            data: labels_4,
+                            fill:false,
+                            "borderColor":'rgba(75, 192, 192, 0.2)',
+                            "lineTension":0.1
+                            },
+                            {label: party[4],
+                            data: labels_5,
+                            fill:false,
+                            "borderColor":'rgba(153, 102, 255, 0.2)',
+                            "lineTension":0.1
+                            },
+                            {label: party[5],
+                            data: labels_6,
+                            fill:false,
+                            "borderColor":'rgba(255, 159, 64, 0.2)',
+                            "lineTension":0.1
+                            },
+                            {label: party[6],
+                            data: labels_7,
+                            fill:false,
+                            "borderColor":"rgba(75, 92, 19,0.2)",
+                            "lineTension":0.1
+                            },
+                            {label: party[7],
+                            data: labels_8,
+                            fill:false,
+                            "borderColor":"rgba(5, 12, 92,0.2)",
+                            "lineTension":0.1
+                            },
+                             {label: party[8],
+                            data: labels_9,
+                            fill:false,
+                            "borderColor":"rgba(112, 192, 19,0.2)",
+                            "lineTension":0.1
+                            }
+                            ]
+                        },
+                        options: {
+                            title:
+                            {
+                			display: true,
+                			text: 'Evoluition of Ipsos survey in last Months',
+                			},
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                    </script>
+                    </div>
+                    <div class="col-6 text-start">
+                    <h3>Evolution of election Vote by Ipsos</h3>
+                    <p> Three weeks before the general elections, the presidential candidate of Popular Action, Yonhy Lescano, has consolidated in the first place of the preferences. According to the latest El Comercio-Ipsos poll, the former congressman has managed to reach 15% in voting intention, thus adding five percentage points more than in February.
+                    <br>The same opinion study also shows that in the fight for second place are George Forsyth, from Victoria Nacional (10%), Rafael López Aliaga, from Renovación Popular (8%), Keiko Fujimori, from Fuerza Popular (7%), and Verónika Mendoza, from Together for Peru (6%).
+                    </p>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" style="margin-top:5rem">
+            <div class="row">
+                <h2> This section is based in our personal survey</h2>
+                <h5> Here youn can see the information obatined from our database. </h5>
+            </div>
+            <div class="row align-items-start" style="margin-top:50px;">
+                <div class="col-6 text-start">
+                    <h2>President most voted</h2>
+                    <canvas id="Presidential" width="200" height="200"></canvas>
+                </div>
+                <script>
+                    var president=[];
+                    var labels=[]
+                    i = 0;
+                    "{%for count in president%}"
+                       president[i]= "{{count['N']}}";
+                       i++;
+                    "{% endfor %}"
+                    i = 0;
+                    "{%for part in partys%}"
+                       labels[i]= "{{part.name_party}}";
+                       i++;
+                    "{% endfor %}"
+
+                    var ctx = document.getElementById('Presidential').getContext('2d');
+                    var Presidential = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets:[
+                            {
+                            label: "Presidential votes",
+                            data: president,
+                            backgroundColor:'rgba(219, 237, 220)',
+                            borderColor: 'rgba(49, 165, 66)',
+                            borderWidth: 1
+                            }
+                            ]
+                        },
+                        options: {
+                            title:
+                            {
+                			display: true,
+                			text: 'Elections 2021 - Presidential election',
+                			},
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                </script>
+                <div class="col-6 text-start">
+                    <h2>Does we have a winner?</h2>
+                    <p> It is very difficult to say as we can see there is a lot of uncertainty in which candidate is going to be chossen.</p>
+                    <p>Five of the presidential candidates that Peru next Sunday the 11th are practically tied, with the same probabilities of going to the second round, according to two polls of the intention to vote held released this Sunday. They are three rightists, one leftist, and a populist who navigates between two waters. These elections, which are held in the worst of the second wave of the pandemic, are among the most contested and uncertain in Peru. None of the five tied exceeds 10% of voting intention and 28% of those surveyed are undecided or prefer not to reveal their preferences.
+                    </p>
+                </div>
+            </div>
+            <div class="row align-items-start" style="margin-top:50px;">
+                <div class="col-6 text-start">
+                    <h2>Party most voted</h2>
+                    <canvas id="Congress" width="200" height="200"></canvas>
+                </div>
+                <script>
+                    var congress=[];
+                    var labels_congress=[]
+                    i = 0;
+                    "{%for count in congress%}"
+                       congress[i]= "{{count['P']}}";
+                       i++;
+                    "{% endfor %}"
+                    i = 0;
+                    "{%for part in partys%}"
+                       labels_congress[i] = "{{part.name_party}}";
+                       i++;
+                    "{% endfor %}"
+
+                    var ctx = document.getElementById('Congress').getContext('2d');
+                    var Congress = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: labels_congress,
+                            datasets:[
+                            {
+                            label: "Congress Votes",
+                            data: congress,
+                            backgroundColor:'rgba(219, 237, 220)',
+                            borderColor: 'rgba(49, 165, 66)',
+                            borderWidth: 1
+                            }
+                            ]
+                        },
+                        options: {
+                            title:
+                            {
+                			display: true,
+                			text: 'Elections 2021 - Congress Party most voted',
+                			},
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                </script>
+                <div class="col-6 text-start">
+                    <h2>Does we have a winner?</h2>
+                    <p>Many of the candidates are going to be chosen by drag. Which is that they choose their candidate for Congress based on their presidential candidate.</p>
+                    <p>According to the Institute of Peruvian Studies: </p>
+                    <p> At least eleven political organizations would have a chance to overcome the hurdle according to polls. Popular Action returns to position first (9.1%), but also losing preferences (-4.4%). In second position is Somos Peru (6.7%), falling by 3.7%. The third location corresponds to Frepap, which lost one percentage point and reached 6.5%.
+                    <br>The two groups that registered an increase are Partido Morado (5.5%) and Alianza Para el Progreso (5.0%). However, they do so with percentages even less than the percentage point, 0.9 and 0.7 respectively.
+                    <br>The record that is triggered in the IEP study is that of Blank / Null. In the previous investigation (March 28) it reached 11.9%. In the one presented on Sunday April 4, it grows 10.8 percentage points and grows to 22.7%. While Do not know / Not precise increases to 4.3%.
+                    </p>
+                </div>
+
+            </div>
+            </div>
+
+{% endblock %}
